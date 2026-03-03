@@ -22,6 +22,21 @@ export { UNDERSEA_CABLES, MAP_URLS } from './geo';
 // AI Datacenters (shared)
 export { AI_DATA_CENTERS } from './ai-datacenters';
 
+// Example addition (adjust to match existing style)
+export const variants = {
+  full: { name: 'World Monitor', icon: '🌍', theme: 'dark-geopol', feedsKey: 'geopolFeeds' },
+  tech: { name: 'Tech Monitor', icon: '💻', theme: 'dark-tech', feedsKey: 'techFeeds' },
+  finance: { name: 'Finance Monitor', icon: '📈', theme: 'dark-finance', feedsKey: 'financeFeeds' },
+  happy: { name: 'Happy Monitor', icon: '😊', theme: 'light-happy', feedsKey: 'happyFeeds' },
+  // ADD THIS:
+  environment: {
+    name: 'Environment Monitor',
+    icon: '🌿',               // or '🍃' / '🌱'
+    theme: 'dark-environment', // we'll make this
+    feedsKey: 'environmentFeeds', // define below
+    description: 'Climate, nature, disasters & sustainability tracking'
+  }
+};
 // Feeds configuration (shared functions, variant-specific data)
 export {
   SOURCE_TIERS,
