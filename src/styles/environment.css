@@ -1,0 +1,8 @@
+:root[data-variant="environment"] {
+  --primary: #2e7d32;        /* forest green */
+  --primary-light: #4caf50;
+  --accent: #0288d1;         /* ocean blue */
+  --background: #f1f8e9;
+  --text: #1b5e20;
+  /* ... adjust more like buttons, map overlays to greens/blues/browns */
+}
