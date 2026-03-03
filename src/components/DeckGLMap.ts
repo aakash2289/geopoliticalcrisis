@@ -2502,6 +2502,53 @@ export class DeckGLMap {
       }),
     ];
 
+    import { useMemo } from 'react';
+// ... other imports
+
+// Assuming variant comes from context, store, or prop
+// (common: useVariantStore(), or import.meta.env.VITE_VARIANT)
+const variant = import.meta.env.VITE_VARIANT || 'full';  // or from context
+
+const layers = useMemo(() => {
+  const baseLayers = [
+    // always-on layers: e.g. basemap labels, grid, etc.
+    new TileLayer({...}),
+    // shared layers if any
+  ];
+
+  let variantLayers = [];
+
+  if (variant === 'environment') {
+    variantLayers = [
+      // New / environment-specific
+      new GeoJsonLayer({
+        id: 'wildfires',
+        data: 'https://firms.modaps.eosdis.nasa.gov/api/area/geojson/...',  // or fetch in hook
+        filled: true,
+        getFillColor: [255, 69, 0, 180],  // orange-red for fires
+        pointRadiusScale: 20,
+        // ... other props
+      }),
+      new HeatmapLayer({
+        id: 'temperature-anomalies',
+        data: /* your climate data source */,
+        getPosition: d => d.coordinates,
+        getWeight: d => d.anomalyValue,
+        // ...
+      }),
+      // Add deforestation polygons, flood zones, protected areas, etc.
+      // Use public GeoJSON endpoints or API fetches
+    ];
+  } else {
+    // Default / other variants (keep existing geopolitical, etc.)
+    variantLayers = [
+      new GeoJsonLayer({ id: 'conflicts', data: /* ACLED or whatever */ }),
+      // ... original layers
+    ];
+  }
+
+  return [...baseLayers, ...variantLayers];
+}, [variant /* + any data deps */]);
     const recentNews = filteredNewsLocations.filter(d => {
       const firstSeen = this.newsLocationFirstSeen.get(d.title);
       return firstSeen && (now - firstSeen) < PULSE_DURATION;
