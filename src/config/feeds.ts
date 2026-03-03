@@ -8,6 +8,14 @@ const rss = (url: string) => `/api/rss-proxy?url=${encodeURIComponent(url)}`;
 // `rss-proxy` now handles secure server-side fallback.
 const railwayRss = (url: string) => rss(url);
 
+// Example in data/feeds/environment.ts or similar
+export const environmentFeeds = [
+  { url: 'https://earthobservatory.nasa.gov/feeds/earth-observatory.rss', category: 'climate', priority: 1 },
+  { url: 'https://www.usgs.gov/newsroom/rss.xml', category: 'earthquakes' },
+  { url: 'https://alerts.weather.gov/cap/us.php?x=1', category: 'weather' }, // NOAA alerts
+  { url: 'https://firms.modaps.eosdis.nasa.gov/api/area/csv/...', category: 'fires' }, // adapt for API
+  // Add WWF, Greenpeace, or Global Forest Watch RSS if available
+];
 // Source tier system for prioritization (lower = more authoritative)
 // Tier 1: Wire services - fastest, most reliable breaking news
 // Tier 2: Major outlets - high-quality journalism
